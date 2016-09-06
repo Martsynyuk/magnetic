@@ -76,7 +76,7 @@ class UserController extends AbstractActionController
 	
 	public function registrationAction()
 	{
-		$this->autorization('registration');
+		//$this->autorization('registration');
 		
 		$form = new RegistrationForm();
 		$form->get('submit')->setValue('registration');

@@ -5,7 +5,10 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Authentication\AuthenticationService;
 use Magnetic\Model\Items;
+use Magnetic\Model\ItemsTable;
 use Magnetic\Form\ItemForm;
+use Magnetic\Core\Autorization as Autorization;
+use Zend\Mvc\MvcEvent;
 
 class ItemsController extends AbstractActionController
 {
@@ -16,8 +19,13 @@ class ItemsController extends AbstractActionController
 		$this->table = $table;
 		$this->auth = new AuthenticationService();
 	}
+	public function onDispatch(MvcEvent $e) // beforeaction
+	{
+		return parent::onDispatch($e);
+	}
 	public function indexAction()
 	{
+		//$this->params()->fromRoute('action'); // get active action
 		return new ViewModel();
 	}
 	public function userListAction()
@@ -51,10 +59,10 @@ class ItemsController extends AbstractActionController
 			return ['form' => $form];
 		}
 		
-		$user->exchangeArray($form->getData());
+		$item->exchangeArray($form->getData());
 		
 		$this->table->saveItems($item);
-		return $this->redirect()->toUrl('/items/itemsList');
+		return $this->redirect()->toUrl('/');
 	}
 	public function updateAction()
 	{

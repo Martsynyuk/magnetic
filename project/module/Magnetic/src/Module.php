@@ -29,9 +29,9 @@ class Module implements ConfigProviderInterface
 						},
 						Model\ItemsTable::class => function($container) {
 							$tableGateway = $container->get(Model\ItemsTableGateway::class);
-							return new Model\UserTable($tableGateway);
+							return new Model\ItemsTable($tableGateway);
 						},
-						Model\UserTableGateway::class => function ($container) {
+						Model\ItemsTableGateway::class => function ($container) {
 							$dbAdapter = $container->get(AdapterInterface::class);
 							$resultSetPrototype = new ResultSet();
 							$resultSetPrototype->setArrayObjectPrototype(new Model\Items());

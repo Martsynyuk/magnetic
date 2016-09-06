@@ -9,15 +9,15 @@ class Autorization extends AbstractActionController
 {
 	public function test()
 	{
-		$this->redirect()->toUrl('/');
+	
 	}
 	public function autorizationRules()
 	{
 		$acl = new Acl();
 			
 		$acl->addRole(new Role('guest'))
-		->addRole(new Role('user'))
-		->addRole(new Role('admin'));
+			->addRole(new Role('user'))
+			->addRole(new Role('admin'));
 	
 		$acl->allow('guest', null, ['login', 'registration'])
 			->allow('admin', null, ['index']);

@@ -12,15 +12,31 @@ use Zend\Validator\StringLength;
 
 class Items implements InputFilterAwareInterface
 {
-
+	public $id;
+	public $name;
+	public $description;
+	public $price;
+	public $quantity;
+	private $inputFilter;
+	
 	public function exchangeArray(array $data)
 	{
-
+		$this->id = !empty($data['id']) ? $data['id'] : null;
+		$this->name = !empty($data['name']) ? $data['name'] : null;
+		$this->description = !empty($data['description']) ? $data['description'] : null;
+		$this->price = !empty($data['price']) ? $data['price'] : null;
+		$this->quantity = !empty($data['quantity']) ? $data['quantity'] : null;
 	}
 	
 	public function getArrayCopy()
 	{
-		return [];
+		return [
+			'id' => $this->id,
+			'name' => $this->name,
+			'description' => $this->description,
+			'price' => $this->price,
+			'quantity' => $this->quantity
+		];
 	}
 	
 	public function setInputFilter(InputFilterInterface $inputFilter)
