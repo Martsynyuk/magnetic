@@ -3,14 +3,13 @@ namespace Magnetic\Controller;
 
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Authentication\AuthenticationService;
 use Magnetic\Model\UserTable;
 use Magnetic\Form\LoginForm;
 use Magnetic\Form\RegistrationForm;
 use Magnetic\Model\User;
+use Magnetic\Core\Autorization;
 
 class UserController extends AbstractActionController
 {
@@ -26,7 +25,6 @@ class UserController extends AbstractActionController
 	public function loginAction()
 	{
 		//$this->autorization('login');
-		
 		$form = new LoginForm();
 		$form->get('submit')->setValue('Login');
 		
@@ -101,37 +99,5 @@ class UserController extends AbstractActionController
 		
 		$this->table->saveUser($user);
 		return $this->redirect()->toUrl('/user/login');
-	}
-	
-	public function autorizationRules()
-	{	
-		$acl = new Acl();
-			
-		$acl->addRole(new Role('guest'))
-			->addRole(new Role('user'))
-			->addRole(new Role('admin'));
-		
-		$acl->allow('guest', null, ['login', 'registration'])
-			->allow('admin', null, ['index']);
-
-		return $acl;
-	}
-	
-	public function autorization($action)
-	{
-		if(!isset($this->auth->getStorage()->read()->status)) {
-			$status = 'guest';
-		} else {
-			$status = $this->auth->getStorage()->read()->status;
-		}
-		
-		$acl = $this->autorizationRules();
-		
-		if(!$acl->isAllowed($status, null, $action)) {
-			if($status == 'guest') {
-				return $this->redirect()->toUrl('/user/login'); 
-			}
-			return $this->redirect()->toUrl('/');
-		}
 	}
 }

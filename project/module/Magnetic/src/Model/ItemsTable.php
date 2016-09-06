@@ -13,7 +13,15 @@ class UserTable
 	{
 		$this->tableGateway = $tableGateway;
 	}
-	public function getItems()
+	public function getRecords()
+	{
+		
+	}
+	public function saveItems($data, $id = null)
+	{
+		
+	}
+	public function deleteItems($items_id)
 	{
 		
 	}
