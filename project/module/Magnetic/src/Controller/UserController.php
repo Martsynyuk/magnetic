@@ -71,7 +71,7 @@ class UserController extends AbstractActionController
 			$storage->write($authAdapter->getResultRowObject());
 			
 			return $this->redirect()->toUrl('/');
-		}	
+		}	*/
 	}
 	
 	public function registrationAction()

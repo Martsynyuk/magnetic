@@ -13,21 +13,29 @@ class ItemsTable
 	{
 		$this->tableGateway = $tableGateway;
 	}
-	public function getRecords()
+	public function getRecords($condition = [])
 	{
-		
+		$result = $this->tableGateway->select($condition);
+		return $result->current();
 	}
 	public function saveItems(Items $items, $id = null)
-	{
+	{	var_dump($id);
 		$data = [
-			'items_name' => $items->name,
-			'product_description' => $items->description,
+			'name' => $items->name,
+			'description' => $items->description,
 			'price' => $items->price,
 			'quantity' => $items->quantity,
 			'created' => date('Y-m-d')
 		];
 		
-		$this->tableGateway->insert($data);
+		if(!$id) {
+			return $this->tableGateway->insert($data);
+		}
+		
+		if($this->getRecords($id)) {
+			unset($data['created']);
+			$this->tableGateway->update($data, ['id' => $id]);
+		}
 	}
 	public function deleteItems($items_id)
 	{

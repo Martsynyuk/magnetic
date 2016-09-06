@@ -1,1 +1,61 @@
 <?php
+$title = 'Update';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+
+$name = $form->get('name');
+$name->setAttribute('class', 'form-control');
+$name->setAttribute('value', (isset($item->name) ? $item->name : ''));
+$name->setAttribute('placeholder', 'enter items name');
+
+$description = $form->get('description');
+$description->setAttribute('class', 'form-control');
+$description->setAttribute('value', (isset($item->description) ? $item->description : ''));
+$description->setAttribute('placeholder', 'enter items description');
+
+$price = $form->get('price');
+$price->setAttribute('class', 'form-control');
+$price->setAttribute('value', (isset($item->price) ? $item->price : ''));
+$price->setAttribute('placeholder', 'enter items price');
+
+$quantity = $form->get('quantity');
+$quantity->setAttribute('class', 'form-control');
+$quantity->setAttribute('value', (isset($item->quantity) ? $item->quantity : ''));
+$quantity->setAttribute('placeholder', 'enter items quantity');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('items', ['action' => 'update', 'id' => $item->id]));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+
+<div class="form-group">
+    <?= $this->formLabel($name) ?>
+    <?= $this->formElement($name) ?>
+    <?= $this->formElementErrors()->render($name, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+    <?= $this->formLabel($description) ?>
+    <?= $this->formElement($description) ?>
+    <?= $this->formElementErrors()->render($description, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+    <?= $this->formLabel($price) ?>
+    <?= $this->formElement($price) ?>
+    <?= $this->formElementErrors()->render($price, ['class' => 'help-block']) ?>
+</div>
+<div class="form-group">
+    <?= $this->formLabel($quantity) ?>
+    <?= $this->formElement($quantity) ?>
+    <?= $this->formElementErrors()->render($quantity, ['class' => 'help-block']) ?>
+</div>
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();
+?>

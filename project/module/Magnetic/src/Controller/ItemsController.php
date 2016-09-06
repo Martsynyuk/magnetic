@@ -65,14 +65,15 @@ class ItemsController extends AbstractActionController
 		return $this->redirect()->toUrl('/');
 	}
 	public function updateAction()
-	{
+	{	
 		$form = new ItemForm();
 		$form->get('submit')->setValue('update');
 		
 		$request = $this->getRequest();
 		
 		if (! $request->isPost()) {
-			return ['form' => $form];
+			$item = $this->table->getRecords(['id' => $this->params()->fromRoute('id')]);
+			return ['form' => $form, 'item' => $item];
 		}
 		
 		$item = new Items();
@@ -83,10 +84,9 @@ class ItemsController extends AbstractActionController
 			return ['form' => $form];
 		}
 		
-		$user->exchangeArray($form->getData());
-		
-		$this->table->saveItems($item, $item_id);
-		return $this->redirect()->toUrl('/items/itemsList');
+		$item->exchangeArray($form->getData());
+		$this->table->saveItems($item, $this->params()->fromRoute('id'));
+		return $this->redirect()->toUrl('/');
 	}
 	public function deleteAction()
 	{
