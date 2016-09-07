@@ -17,6 +17,7 @@ class Items implements InputFilterAwareInterface
 	public $description;
 	public $price;
 	public $quantity;
+	public $created;
 	private $inputFilter;
 	
 	public function exchangeArray(array $data)
@@ -26,6 +27,7 @@ class Items implements InputFilterAwareInterface
 		$this->description = !empty($data['description']) ? $data['description'] : null;
 		$this->price = !empty($data['price']) ? $data['price'] : null;
 		$this->quantity = !empty($data['quantity']) ? $data['quantity'] : null;
+		$this->created = !empty($data['created']) ? $data['created'] : null;
 	}
 	
 	public function getArrayCopy()
@@ -35,7 +37,8 @@ class Items implements InputFilterAwareInterface
 			'name' => $this->name,
 			'description' => $this->description,
 			'price' => $this->price,
-			'quantity' => $this->quantity
+			'quantity' => $this->quantity,
+			'created' => $this->created
 		];
 	}
 	

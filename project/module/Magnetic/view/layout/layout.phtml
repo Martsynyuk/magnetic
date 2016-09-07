@@ -25,6 +25,12 @@
     </head>
     <body>
         <div class="container">
+	        <div>
+	    		<a class="btn btn-primary" href="<?= $this->url('items', ['action' => 'logout']) ?>">Logout</a>
+	    		<a class="btn btn-primary" href="<?= $this->url('items') ?>">Home</a>
+	    		<?= (isset($status) && $status == 'user') ? require __DIR__ . '/elements/layout_menu.phtml' : ''; ?>
+	    	</div>
+        
             <?= $this->content ?>
         </div>
         <?= $this->inlineScript() ?>

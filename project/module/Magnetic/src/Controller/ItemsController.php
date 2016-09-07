@@ -19,14 +19,19 @@ class ItemsController extends AbstractActionController
 		$this->table = $table;
 		$this->auth = new AuthenticationService();
 	}
-	public function onDispatch(MvcEvent $e) // beforeaction
+	public function onDispatch(MvcEvent $e)
 	{
-		//$this->params()->fromRoute('action'); // get active action
-		$autorization = new Autorization();
+		/*$autorization = new Autorization();
+		
+		if($autorization->autorizate($this->auth, $this->params()->fromRoute('action'))) {
+			return $this->redirect()->toUrl($autorization->autorizate($this->auth, $this->params()->fromRoute('action')));
+		}*/
 		return parent::onDispatch($e);
 	}
 	public function indexAction()
 	{
+		$this->layout()->setVariables(['status' => $this->auth->getStorage()->read()->status]);
+		
 		if($this->table->fetchAll()) {
 			$items = $this->table->fetchAll();
 			return new ViewModel(['items' => $items]);

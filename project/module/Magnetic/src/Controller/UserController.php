@@ -22,9 +22,13 @@ class UserController extends AbstractActionController
 		$this->table = $table;
 		$this->auth = new AuthenticationService();
 	}
-	public function onDispatch(MvcEvent $e) // beforeaction
+	public function onDispatch(MvcEvent $e)
 	{
-		$autorization = new Autorization();
+		/*$autorization = new Autorization();
+		
+		if($autorization->autorizate($this->auth, $this->params()->fromRoute('action'))) {
+			return $this->redirect()->toUrl($autorization->autorizate($this->auth, $this->params()->fromRoute('action')));
+		}*/
 		return parent::onDispatch($e);
 	}
 	public function loginAction()

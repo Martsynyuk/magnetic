@@ -1,5 +1,5 @@
 <?php
-$title = 'index';
+$title = 'Items';
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
@@ -8,9 +8,10 @@ $this->headTitle($title);
 <tr>
     <th>Items name</th>
     <th>Description</th>
-    <th>price</th>
-    <th>quantity</th>
-    <th>created</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Created</th>
+    <th>Order</th>
 </tr>
 <?php foreach ($items as $item) : ?>
     <tr>
