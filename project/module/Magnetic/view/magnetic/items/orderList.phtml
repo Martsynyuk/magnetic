@@ -1,0 +1,30 @@
+<?php
+$title = 'orderList';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<table class="table">
+<tr>
+	<th>User name</th>
+	<th>Phone</th>
+	<th>Delivery address</th>
+	<th>Items name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Sum</th>
+    <th>Created</th>
+</tr>
+<?php foreach ($orders as $order) : ?>
+    <tr>
+    	<td><?= $this->escapeHtml($order->username) ?></td>
+    	<td><?= $this->escapeHtml($order->telephone) ?></td>
+    	<td><?= $this->escapeHtml($order->adress) ?></td>
+        <td><?= $this->escapeHtml($order->name) ?></td>
+        <td><?= $this->escapeHtml($order->price) ?></td>
+        <td><?= $this->escapeHtml($order->quantity) ?></td>
+        <td><?= $this->escapeHtml($order->quantity*$order->price) ?></td>
+        <td><?= $this->escapeHtml($order->created) ?></td>
+    </tr>
+<?php endforeach; ?>
+</table>

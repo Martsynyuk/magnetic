@@ -7,7 +7,7 @@ use Zend\Authentication\AuthenticationService;
 use Magnetic\Model\Items;
 use Magnetic\Model\ItemsTable;
 use Magnetic\Form\ItemForm;
-use Magnetic\Core\Autorization as Autorization;
+use Magnetic\Core\Autorization;
 use Zend\Mvc\MvcEvent;
 
 class ItemsController extends AbstractActionController
@@ -21,23 +21,41 @@ class ItemsController extends AbstractActionController
 	}
 	public function onDispatch(MvcEvent $e) // beforeaction
 	{
+		//$this->params()->fromRoute('action'); // get active action
+		$autorization = new Autorization();
 		return parent::onDispatch($e);
 	}
 	public function indexAction()
 	{
-		//$this->params()->fromRoute('action'); // get active action
+		if($this->table->fetchAll()) {
+			$items = $this->table->fetchAll();
+			return new ViewModel(['items' => $items]);
+		}
 		return new ViewModel();
 	}
 	public function userListAction()
 	{
-		
+		if($this->table->fetchAll()) {
+			$users = $this->table->fetchAll();
+			return new ViewModel(['users' => $users]);
+		}
+		return new ViewModel();
 	}
 	public function itemsListAction()
 	{
-		
+		if($this->table->fetchAll()) {
+			$items = $this->table->fetchAll();
+			return new ViewModel(['items' => $items]);
+		}
+		return new ViewModel();
 	}
 	public function orderListAction()
 	{
+		if($this->table->fetchAll()) {
+			$orders = $this->table->fetchAll();
+			return new ViewModel(['orders' => $orders]);
+		}
+		return new ViewModel();
 		
 	}
 	public function createAction()
@@ -73,6 +91,9 @@ class ItemsController extends AbstractActionController
 		
 		if (! $request->isPost()) {
 			$item = $this->table->getRecords(['id' => $this->params()->fromRoute('id')]);
+			if(!is_object($item)) {
+				return $this->redirect()->toUrl('/');
+			}
 			return ['form' => $form, 'item' => $item];
 		}
 		

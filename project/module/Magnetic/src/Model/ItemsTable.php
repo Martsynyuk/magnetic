@@ -13,13 +13,16 @@ class ItemsTable
 	{
 		$this->tableGateway = $tableGateway;
 	}
+	public function fetchAll()
+	{
+		return $this->tableGateway->select();
+	}
 	public function getRecords($condition = [])
 	{
-		$result = $this->tableGateway->select($condition);
-		return $result->current();
+		return $this->tableGateway->select($condition)->current();
 	}
 	public function saveItems(Items $items, $id = null)
-	{	var_dump($id);
+	{
 		$data = [
 			'name' => $items->name,
 			'description' => $items->description,

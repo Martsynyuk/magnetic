@@ -8,27 +8,34 @@ class Order extends Form
 	public function __construct($name = null)
 	{
 		parent::__construct('login');
-	
+		
 		$this->add([
-				'name' => 'id',
-				'type' => 'hidden',
+				'name' => 'checkbox',
+				'type' => 'Zend\Form\Element\Checkbox',
+				'options' => [
+						'label' => 'checkbox',
+						'unchecked_value' => ''
+				],
 		]);
 		$this->add([
-				'name' => 'status',
-				'type' => 'Zend\Form\Element\Select',
+				'name' => 'quantity',
+				'type' => 'number',
 				'options' => [
-						'label' => 'status',
-						'value_options' => [
-								'max' => 'max',
-								'min' => 'min',
-						],
+						'label' => 'quantity',
+				],
+		]);
+		$this->add([
+				'name' => 'adress',
+				'type' => 'text',
+				'options' => [
+						'label' => 'adress',
 				],
 		]);
 		$this->add([
 				'name' => 'submit',
 				'type' => 'submit',
 				'attributes' => [
-						'value' => 'Login',
+						'value' => 'Buy',
 						'id'    => 'submitbutton',
 				],
 		]);

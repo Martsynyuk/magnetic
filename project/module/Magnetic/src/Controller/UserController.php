@@ -10,6 +10,7 @@ use Magnetic\Form\LoginForm;
 use Magnetic\Form\RegistrationForm;
 use Magnetic\Model\User;
 use Magnetic\Core\Autorization;
+use Zend\Mvc\MvcEvent;
 
 class UserController extends AbstractActionController
 {
@@ -21,10 +22,13 @@ class UserController extends AbstractActionController
 		$this->table = $table;
 		$this->auth = new AuthenticationService();
 	}
-	
+	public function onDispatch(MvcEvent $e) // beforeaction
+	{
+		$autorization = new Autorization();
+		return parent::onDispatch($e);
+	}
 	public function loginAction()
 	{
-		//$this->autorization('login');
 		$form = new LoginForm();
 		$form->get('submit')->setValue('Login');
 		
@@ -71,13 +75,11 @@ class UserController extends AbstractActionController
 			$storage->write($authAdapter->getResultRowObject());
 			
 			return $this->redirect()->toUrl('/');
-		}	*/
+		}
 	}
 	
 	public function registrationAction()
 	{
-		//$this->autorization('registration');
-		
 		$form = new RegistrationForm();
 		$form->get('submit')->setValue('registration');
 		

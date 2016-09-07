@@ -1,0 +1,65 @@
+<?php
+
+$title = 'checkout';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<table class="table">
+	<tr>
+		<th>Select items for buy</th>
+		<th>Item name</th>
+		<th>Item ptice</th>
+		<th>Item quantity</th>
+		<th>Buy</th>
+		<th>Delivery address</th>
+	</tr>
+<?php foreach ($orders as $order) : ?>
+<?php 
+$id = $form->get('checkbox');
+$id->setAttribute('class', 'form-control');
+$id->setAttribute('checked_value', $order->id);
+
+$quantity = $form->get('quantity');
+$quantity->setAttribute('class', 'form-control');
+$quantity->setAttribute('value', '1');
+
+$adress = $form->get('quantity');
+$adress->setAttribute('class', 'form-control');
+$adress->setAttribute('value', $order->adress);
+?>
+    <tr>
+    	<td><?= $this->formLabel($id) ?>
+    		<?= $this->formElement($id) ?>
+    		<?= $this->formElementErrors()->render($id, ['class' => 'help-block']) ?>
+    	</td>
+        <td><?= $this->escapeHtml($order->name) ?></td>
+        <td><?= $this->escapeHtml($order->price) ?></td>
+        <td><?= $this->escapeHtml($order->quantity) ?></td>
+        <td>
+        	<?= $this->formLabel($quantity) ?>
+    		<?= $this->formElement($quantity) ?>
+    		<?= $this->formElementErrors()->render($quantity, ['class' => 'help-block']) ?>
+        </td>
+         <td>
+        	<?= $this->formLabel($adress) ?>
+    		<?= $this->formElement($adress) ?>
+    		<?= $this->formElementErrors()->render($adress, ['class' => 'help-block']) ?>
+        </td>
+        <td><?= $this->escapeHtml($order->created) ?></td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('cart', ['action' => 'checkout']));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();
+?>
