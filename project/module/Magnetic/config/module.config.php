@@ -45,17 +45,17 @@ return [
 								],
 						],
 				],
-				'cart' => [
+				'order' => [
 						'type'    => Segment::class,
 						'options' => [
-								'route' => '/cart[/:action[/:id]]',
+								'route' => '/order[/:action[/:id]]',
 								'constraints' => [
 										'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 										'id'     => '[0-9]+',
 								],
 								'defaults' => [
-										'controller' => Controller\CartController::class,
-										'action'     => 'add',
+										'controller' => Controller\OrderController::class,
+										'action'     => 'orderList',
 								],
 						],
 				],
@@ -70,7 +70,7 @@ return [
 				'template_path_stack' => [
 						'user' => __DIR__ . '/../view',
 						'items' => __DIR__ . '/../view',
-						'cart' => __DIR__ . '/../view'
+						'order' => __DIR__ . '/../view'
 				],
 		],
 ];

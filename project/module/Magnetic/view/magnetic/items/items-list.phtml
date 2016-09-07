@@ -1,5 +1,5 @@
 <?php
-$title = 'myOrder';
+$title = 'itemsList';
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
@@ -8,9 +8,11 @@ $this->headTitle($title);
 <tr>
     <th>Items name</th>
     <th>Description</th>
-    <th>Price</th>
+    <th>price</th>
     <th>quantity</th>
-    <th>Created</th>
+    <th>created</th>
+    <th>update</th>
+    <th>delete</th>
 </tr>
 <?php foreach ($items as $item) : ?>
     <tr>
@@ -20,8 +22,12 @@ $this->headTitle($title);
         <td><?= $this->escapeHtml($item->quantity) ?></td>
         <td><?= $this->escapeHtml($item->created) ?></td>
          <td>
-            <a href="<?= $this->url('cart', ['action' => 'checkout', 'id' => $item->id]) ?>">Checkout</a>
+            <a href="<?= $this->url('items', ['action' => 'update', 'id' => $item->id]) ?>">Update</a>
+        </td>
+         <td>
+            <a href="<?= $this->url('items', ['action' => 'delete', 'id' => $item->id]) ?>">Delete</a>
         </td>
     </tr>
 <?php endforeach; ?>
 </table>
+<a href="<?= $this->url('items', ['action' => 'create']) ?>">Create Item</a>

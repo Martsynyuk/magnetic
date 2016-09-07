@@ -37,15 +37,15 @@ class Module implements ConfigProviderInterface
 							$resultSetPrototype->setArrayObjectPrototype(new Model\Items());
 							return new TableGateway('items', $dbAdapter, null, $resultSetPrototype);
 						},
-						Model\CartTable::class => function($container) {
-							$tableGateway = $container->get(Model\CartTableGateway::class);
-							return new Model\CartTable($tableGateway);
+						Model\OrderTable::class => function($container) {
+							$tableGateway = $container->get(Model\OrderTableGateway::class);
+							return new Model\OrderTable($tableGateway);
 						},
-						Model\CartTableGateway::class => function ($container) {
+						Model\OrderTableGateway::class => function ($container) {
 							$dbAdapter = $container->get(AdapterInterface::class);
 							$resultSetPrototype = new ResultSet();
-							$resultSetPrototype->setArrayObjectPrototype(new Model\Cart());
-							return new TableGateway('cart', $dbAdapter, null, $resultSetPrototype);
+							$resultSetPrototype->setArrayObjectPrototype(new Model\Order());
+							return new TableGateway('order', $dbAdapter, null, $resultSetPrototype);
 						},
 				],
 		];
@@ -65,9 +65,9 @@ class Module implements ConfigProviderInterface
 									$container->get(Model\ItemsTable::class)
 									);
 						},
-						Controller\CartController::class => function($container) {
-							return new Controller\CartController(
-									$container->get(Model\CartTable::class)
+						Controller\OrderController::class => function($container) {
+							return new Controller\OrderController(
+									$container->get(Model\OrderTable::class)
 									);
 						},
 				],

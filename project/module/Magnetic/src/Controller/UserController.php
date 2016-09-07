@@ -5,6 +5,7 @@ use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Authentication\AuthenticationService;
+use Zend\View\Model\ViewModel;
 use Magnetic\Model\UserTable;
 use Magnetic\Form\LoginForm;
 use Magnetic\Form\RegistrationForm;
@@ -29,6 +30,9 @@ class UserController extends AbstractActionController
 		if($autorization->autorizate($this->auth, $this->params()->fromRoute('action'))) {
 			return $this->redirect()->toUrl($autorization->autorizate($this->auth, $this->params()->fromRoute('action')));
 		}*/
+		if($this->auth->getStorage()->read()) {
+			$this->layout()->setVariables(['status' => $this->auth->getStorage()->read()->status]);
+		}
 		return parent::onDispatch($e);
 	}
 	public function loginAction()
@@ -105,5 +109,13 @@ class UserController extends AbstractActionController
 		
 		$this->table->saveUser($user);
 		return $this->redirect()->toUrl('/user/login');
+	}
+	public function userListAction()
+	{
+		if($this->table->fetchAll()) {
+			$users = $this->table->fetchAll();
+			return new ViewModel(['users' => $users]);
+		}
+		return new ViewModel();
 	}
 }

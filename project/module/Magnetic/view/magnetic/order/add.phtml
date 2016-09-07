@@ -1,0 +1,39 @@
+<?php
+
+$title = 'Add order';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+$quantity = $form->get('quantity');
+$quantity->setAttribute('class', 'form-control');
+$quantity->setAttribute('placeholder', 'enter items quantity');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('items', ['action' => 'create']));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<table class="table">
+<tr>
+    <th>Items name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Quantity</th>
+</tr>
+<?php foreach ($items as $item) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($item->name) ?></td>
+        <td><?= $this->escapeHtml($item->description) ?></td>
+        <td><?= $this->escapeHtml($item->price) ?></td>
+        <td>
+        	<?= $this->formLabel($quantity) ?>
+    		<?= $this->formElement($quantity) ?>
+    		<?= $this->formElementErrors()->render($quantity, ['class' => 'help-block']) ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>

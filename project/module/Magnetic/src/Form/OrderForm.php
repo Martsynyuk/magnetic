@@ -3,39 +3,32 @@ namespace Magnetic\Form;
 
 use Zend\Form\Form;
 
-class Order extends Form
+class OrderForm extends Form
 {
 	public function __construct($name = null)
 	{
 		parent::__construct('login');
-		
+	
 		$this->add([
-				'name' => 'checkbox',
-				'type' => 'Zend\Form\Element\Checkbox',
-				'options' => [
-						'label' => 'checkbox',
-						'unchecked_value' => ''
-				],
+				'name' => 'id',
+				'type' => 'hidden',
 		]);
 		$this->add([
 				'name' => 'quantity',
 				'type' => 'number',
 				'options' => [
-						'label' => 'quantity',
+						'label' => 'Quantity',
 				],
 		]);
 		$this->add([
-				'name' => 'adress',
-				'type' => 'text',
-				'options' => [
-						'label' => 'adress',
-				],
+				'name' => 'date',
+				'type' => 'hidden'
 		]);
 		$this->add([
 				'name' => 'submit',
 				'type' => 'submit',
 				'attributes' => [
-						'value' => 'Buy',
+						'value' => 'Login',
 						'id'    => 'submitbutton',
 				],
 		]);

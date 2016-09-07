@@ -13,7 +13,10 @@ class UserTable
 	{
 		$this->tableGateway = $tableGateway;
 	}
-	
+	public function fetchAll()
+	{
+		return $this->tableGateway->select();
+	}
 	public function saveUser(User $user)
 	{
 		$data = [

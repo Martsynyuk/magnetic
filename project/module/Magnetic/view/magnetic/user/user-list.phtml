@@ -1,0 +1,24 @@
+<?php
+$title = 'users list';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<table class="table">
+<tr>
+    <th>User name</th>
+    <th>Mail</th>
+    <th>Phone</th>
+    <th>User IP</th>
+    <th>User status</th>
+</tr>
+<?php foreach ($users as $user) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($user->username) ?></td>
+        <td><?= $this->escapeHtml($user->email) ?></td>
+        <td><?= $this->escapeHtml($user->telephone) ?></td>
+        <td><?= $this->escapeHtml($user->user_ip) ?></td>
+        <td><?= $this->escapeHtml($user->status) ?></td>
+    </tr>
+<?php endforeach; ?>
+</table>

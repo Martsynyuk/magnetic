@@ -6,6 +6,8 @@ use Zend\View\Model\ViewModel;
 use Zend\Authentication\AuthenticationService;
 use Magnetic\Model\Items;
 use Magnetic\Model\ItemsTable;
+use Magnetic\Model\User;
+use Magnetic\Model\UserTable;
 use Magnetic\Form\ItemForm;
 use Magnetic\Core\Autorization;
 use Zend\Mvc\MvcEvent;
@@ -26,23 +28,14 @@ class ItemsController extends AbstractActionController
 		if($autorization->autorizate($this->auth, $this->params()->fromRoute('action'))) {
 			return $this->redirect()->toUrl($autorization->autorizate($this->auth, $this->params()->fromRoute('action')));
 		}*/
+		$this->layout()->setVariables(['status' => $this->auth->getStorage()->read()->status]);
 		return parent::onDispatch($e);
 	}
 	public function indexAction()
-	{
-		$this->layout()->setVariables(['status' => $this->auth->getStorage()->read()->status]);
-		
+	{	
 		if($this->table->fetchAll()) {
 			$items = $this->table->fetchAll();
 			return new ViewModel(['items' => $items]);
-		}
-		return new ViewModel();
-	}
-	public function userListAction()
-	{
-		if($this->table->fetchAll()) {
-			$users = $this->table->fetchAll();
-			return new ViewModel(['users' => $users]);
 		}
 		return new ViewModel();
 	}
@@ -53,15 +46,6 @@ class ItemsController extends AbstractActionController
 			return new ViewModel(['items' => $items]);
 		}
 		return new ViewModel();
-	}
-	public function orderListAction()
-	{
-		if($this->table->fetchAll()) {
-			$orders = $this->table->fetchAll();
-			return new ViewModel(['orders' => $orders]);
-		}
-		return new ViewModel();
-		
 	}
 	public function createAction()
 	{	

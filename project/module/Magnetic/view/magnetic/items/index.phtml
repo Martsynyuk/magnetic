@@ -21,7 +21,7 @@ $this->headTitle($title);
         <td><?= $this->escapeHtml($item->quantity) ?></td>
         <td><?= $this->escapeHtml($item->created) ?></td>
         <td>
-            <a href="<?= $this->url('cart', ['action' => 'add', 'id' => $item->id]) ?>">Order</a>
+            <a href="<?= $this->url('order', ['action' => 'add', 'id' => $item->id]) ?>">Order</a>
         </td>
     </tr>
 <?php endforeach; ?>

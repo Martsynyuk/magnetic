@@ -18,6 +18,7 @@ class User implements InputFilterAwareInterface
 	public $email;
 	public $telephone;
 	public $status;
+	public $user_ip;
 	private $inputFilter;
 	
 	public function exchangeArray(array $data)
@@ -28,6 +29,7 @@ class User implements InputFilterAwareInterface
 		$this->email = !empty($data['email']) ? $data['email'] : null;
 		$this->telephone = !empty($data['telephone']) ? $data['telephone'] : null;
 		$this->password  = !empty($data['password']) ? $data['password'] : null;
+		$this->user_ip  = !empty($data['user_ip']) ? $data['user_ip'] : null;
 	}
 	
 	public function getArrayCopy()

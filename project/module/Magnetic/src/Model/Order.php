@@ -10,8 +10,11 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\StringLength;
 
-class Items implements InputFilterAwareInterface
+class Order implements InputFilterAwareInterface
 {
+	public $user_id;
+	public $created;
+	public $item_id;
 	public $adress;
 	public $quantity;
 	private $inputFilter;
@@ -20,13 +23,19 @@ class Items implements InputFilterAwareInterface
 	{
 		$this->adress = !empty($data['adress']) ? $data['adress'] : null;
 		$this->quantity = !empty($data['quantity']) ? $data['quantity'] : null;
+		$this->user_id = !empty($data['user_id']) ? $data['user_id'] : null;
+		$this->created = !empty($data['created']) ? $data['created'] : null;
+		$this->item_id = !empty($data['item_id']) ? $data['item_id'] : null;
 	}
 
 	public function getArrayCopy()
 	{
 		return [
 			'adress' => $this->adress,
-			'quantity' => $this->quantity
+			'quantity' => $this->quantity,
+			'user_id' => $this->user_id,
+			'created' => $this->created,
+			'item_id' => $this->item_id
 		];
 	}
 
