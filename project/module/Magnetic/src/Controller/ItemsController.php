@@ -69,7 +69,7 @@ class ItemsController extends AbstractActionController
 		$item->exchangeArray($form->getData());
 		
 		$this->table->saveItems($item);
-		return $this->redirect()->toUrl('/');
+		return $this->redirect()->toUrl('/items/itemsList');
 	}
 	public function updateAction()
 	{	
@@ -96,11 +96,15 @@ class ItemsController extends AbstractActionController
 		
 		$item->exchangeArray($form->getData());
 		$this->table->saveItems($item, $this->params()->fromRoute('id'));
-		return $this->redirect()->toUrl('/');
+		return $this->redirect()->toUrl('/items/itemsList');
 	}
 	public function deleteAction()
 	{
-		$this->table->deleteItems($item_id);
+		if(!$this->params()->fromRoute('id')) {
+			return $this->redirect()->toUrl('/');
+		}
+		
+		$this->table->deleteItems($this->params()->fromRoute('id'));
 		return $this->redirect()->toUrl('/items/itemsList');
 	}
 	public function logoutAction()

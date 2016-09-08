@@ -5,14 +5,19 @@ $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
 <?php
+$adress = $form->get('adress');
+$adress->setAttribute('class', 'form-control');
+$adress->setAttribute('placeholder', 'enter adress');
+
 $quantity = $form->get('quantity');
 $quantity->setAttribute('class', 'form-control');
+$quantity->setAttribute('value', '1');
 $quantity->setAttribute('placeholder', 'enter items quantity');
 
 $submit = $form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary');
 
-$form->setAttribute('action', $this->url('items', ['action' => 'create']));
+$form->setAttribute('action', $this->url('order', ['action' => 'add', 'id' => $id]));
 $form->prepare();
 
 echo $this->form()->openTag($form);
@@ -22,18 +27,27 @@ echo $this->form()->openTag($form);
     <th>Items name</th>
     <th>Description</th>
     <th>Price</th>
+    <th>adress</th>
     <th>Quantity</th>
 </tr>
-<?php foreach ($items as $item) : ?>
     <tr>
         <td><?= $this->escapeHtml($item->name) ?></td>
         <td><?= $this->escapeHtml($item->description) ?></td>
         <td><?= $this->escapeHtml($item->price) ?></td>
+        <td>
+        	<?= $this->formLabel($adress) ?>
+    		<?= $this->formElement($adress) ?>
+    		<?= $this->formElementErrors()->render($adress, ['class' => 'help-block']) ?>
+        </td>
         <td>
         	<?= $this->formLabel($quantity) ?>
     		<?= $this->formElement($quantity) ?>
     		<?= $this->formElementErrors()->render($quantity, ['class' => 'help-block']) ?>
         </td>
     </tr>
-<?php endforeach; ?>
 </table>
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();
+?>

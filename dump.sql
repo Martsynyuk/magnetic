@@ -28,11 +28,11 @@ CREATE TABLE `items` (
   `quantity` int(10) NOT NULL,
   `created` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `items` */
 
-insert  into `items`(`id`,`name`,`description`,`price`,`quantity`,`created`) values (2,'loli','lol','3324.00',324,'2016-09-06'),(3,'sad','asdasd','34324.00',324,'2016-09-06');
+insert  into `items`(`id`,`name`,`description`,`price`,`quantity`,`created`) values (2,'wood','oak','3324.00',324,'2016-09-06'),(3,'stone','granite','34324.00',324,'2016-09-06'),(5,'glass','crystal','234.00',12,'2016-09-08');
 
 /*Table structure for table `order` */
 
@@ -41,25 +41,17 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
-  `asress` varchar(255) NOT NULL,
-  `creaded` date NOT NULL,
+  `adress` varchar(255) NOT NULL,
+  `created` date NOT NULL,
+  `item_id` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `username` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `order` */
 
-/*Table structure for table `orderitem` */
-
-DROP TABLE IF EXISTS `orderitem`;
-
-CREATE TABLE `orderitem` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `order_id` int(10) NOT NULL,
-  `item_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `orderitem` */
+insert  into `order`(`id`,`user_id`,`adress`,`created`,`item_id`,`quantity`,`username`) values (1,1,'town','2016-09-08',2,3,'terr');
 
 /*Table structure for table `user` */
 
@@ -78,7 +70,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`username`,`password`,`email`,`telephone`,`user_ip`,`status`) values (1,'terr','96e79218965eb72c92a549dd5a330112','terr@gmail.com','111111','127.0.0.1','user'),(2,'admin','96e79218965eb72c92a549dd5a330112','admin@mail.com','32423432','127.0.0.1','user'),(3,'torr','96e79218965eb72c92a549dd5a330112','torr@gmail.com','43243232','127.0.0.1','user');
+insert  into `user`(`id`,`username`,`password`,`email`,`telephone`,`user_ip`,`status`) values (1,'terr','96e79218965eb72c92a549dd5a330112','terr@gmail.com','111111','127.0.0.1','admin'),(2,'admin','96e79218965eb72c92a549dd5a330112','admin@mail.com','32423432','127.0.0.1','user'),(3,'torr','96e79218965eb72c92a549dd5a330112','torr@gmail.com','43243232','127.0.0.1','user');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

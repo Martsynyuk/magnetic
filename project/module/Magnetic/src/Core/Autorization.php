@@ -15,7 +15,7 @@ class Autorization
 			->addRole(new Role('admin'));
 	
 		$acl->allow('guest', null, ['login', 'registration'])
-			->allow('user', null, ['index', 'add', 'myOrders', 'checkout'])
+			->allow('user', null, ['index', 'add'])
 			->deny('admin', null, ['login', 'registration']);
 	
 		return $acl;

@@ -14,6 +14,13 @@ class OrderForm extends Form
 				'type' => 'hidden',
 		]);
 		$this->add([
+				'name' => 'adress',
+				'type' => 'text',
+				'options' => [
+						'label' => 'adress',
+				],
+		]);
+		$this->add([
 				'name' => 'quantity',
 				'type' => 'number',
 				'options' => [

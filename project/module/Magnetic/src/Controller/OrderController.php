@@ -33,13 +33,19 @@ class OrderController extends AbstractActionController
 	}
 	public function addAction()
 	{
+		if(!$this->params()->fromRoute('id')) {
+			return $this->redirect()->toUrl('/');
+		}
+		
+		$item = $this->table->getItem($this->params()->fromRoute('id'));
+		
 		$form = new OrderForm();
 		$form->get('submit')->setValue('order');
 		
 		$request = $this->getRequest();
 		
 		if (! $request->isPost()) {
-			return ['form' => $form];
+			return ['form' => $form, 'item' => $item, 'id' => $this->params()->fromRoute('id')];
 		}
 		
 		$order = new Order();
@@ -52,16 +58,22 @@ class OrderController extends AbstractActionController
 		
 		$order->exchangeArray($form->getData());
 		
-		$this->table->saveUser($order);
+		$this->table->saveOrder(
+								$order, 
+								$this->params()->fromRoute('id'), 
+								$this->auth->getStorage()->read()->id, 
+								$this->auth->getStorage()->read()->username
+						);
+		
 		return $this->redirect()->toUrl('/');
 	}
 	public function orderListAction()
 	{
-		if($this->table->fetchAll()) {
-			$orders = $this->table->fetchAll();
+		if($this->table->getOrders()) {
+			$orders = $this->table->getOrders();
+			
 			return new ViewModel(['orders' => $orders]);
 		}
 		return new ViewModel();
-	
 	}
 }

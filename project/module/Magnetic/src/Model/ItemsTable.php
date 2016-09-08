@@ -42,6 +42,6 @@ class ItemsTable
 	}
 	public function deleteItems($items_id)
 	{
-		
+		$this->tableGateway->delete(['id' => (int)$items_id]);
 	}
 }

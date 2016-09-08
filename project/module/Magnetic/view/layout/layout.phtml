@@ -26,8 +26,8 @@
     <body>
         <div class="container">
 	        <div>
-	    		<?= (isset($status)) ? require __DIR__ . '/elements/layout_menu2.phtml' : ''; ?>
-	    		<?= (isset($status) && $status == 'user') ? require __DIR__ . '/elements/layout_menu1.phtml' : ''; ?>
+	    		<?php (isset($status)) ? include __DIR__ . '/elements/layout_menu2.phtml' : ''; ?>
+	    		<?php (isset($status) && $status == 'admin') ? include __DIR__ . '/elements/layout_menu1.phtml' : ''; ?>
 	    	</div>
         
             <?= $this->content ?>
