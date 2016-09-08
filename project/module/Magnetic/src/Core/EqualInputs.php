@@ -12,14 +12,9 @@ class EqualInputs extends AbstractValidator
 			self::NOT_EQUAL => 'strings not equal'
 	];
 	
-	
-	public function __construct() 
-	{
-		$this->contextKey = 'password';
-	}
-	
 	public function isValid($value, $context = null) 
 	{
+		$this->contextKey = 'password';
 		$value = (string) $value;
 	
 		if (is_array($context)) {
