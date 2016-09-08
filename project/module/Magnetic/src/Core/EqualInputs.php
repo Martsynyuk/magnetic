@@ -7,14 +7,13 @@ class EqualInputs extends AbstractValidator
 {
 	const NOT_EQUAL = 'stringsNotEqual';
 
-	protected $contextKey;
+	protected $contextKey = 'password';
 	protected $messageTemplates = [
 			self::NOT_EQUAL => 'strings not equal'
 	];
 	
 	public function isValid($value, $context = null) 
 	{
-		$this->contextKey = 'password';
 		$value = (string) $value;
 	
 		if (is_array($context)) {

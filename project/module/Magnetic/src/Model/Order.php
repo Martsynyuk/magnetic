@@ -4,11 +4,11 @@ namespace Magnetic\Model;
 use DomainException;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
-use Zend\Filter\ToInt;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\StringLength;
+use Zend\Validator\Digits;
 
 class Order implements InputFilterAwareInterface
 {
@@ -54,7 +54,7 @@ class Order implements InputFilterAwareInterface
 		}
 
 		$inputFilter = new InputFilter();
-
+		
 		$inputFilter->add([
 				'name' => 'adress',
 				'required' => true,
@@ -75,7 +75,7 @@ class Order implements InputFilterAwareInterface
 		]);
 		
 		$inputFilter->add([
-				'name' => 'qantity',
+				'name' => 'quantity',
 				'required' => true,
 				'filters' => [
 						['name' => StripTags::class],

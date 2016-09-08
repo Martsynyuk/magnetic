@@ -53,7 +53,7 @@ class OrderController extends AbstractActionController
 		$form->setData($request->getPost());
 		
 		if (! $form->isValid()) {
-			return ['form' => $form];
+			return ['form' => $form, 'item' => $item, 'id' => $this->params()->fromRoute('id')];
 		}
 		
 		$order->exchangeArray($form->getData());
