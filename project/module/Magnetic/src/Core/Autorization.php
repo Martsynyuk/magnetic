@@ -16,7 +16,9 @@ class Autorization
 	
 		$acl->allow('guest', null, ['login', 'registration'])
 			->allow('user', null, ['index', 'add'])
-			->deny('admin', null, ['login', 'registration']);
+			->allow('admin', null, ['index', 'add', 'itemsList', 'create',
+					'update', 'delete', 'userList', 'add', 'orderList'
+			]);
 	
 		return $acl;
 	}

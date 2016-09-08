@@ -3,6 +3,10 @@ namespace Magnetic\Model;
 
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Paginator\Paginator;
+use Zend\Db\Sql\Select;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Paginator\Adapter\DbSelect;
 use Magnetic\Model\Items;
 
 class ItemsTable
@@ -13,8 +17,12 @@ class ItemsTable
 	{
 		$this->tableGateway = $tableGateway;
 	}
-	public function fetchAll()
+	public function fetchAll($paginated = false)
 	{
+		if ($paginated) {
+			return $this->PaginatedResults();
+		}
+		
 		return $this->tableGateway->select();
 	}
 	public function getRecords($condition = [])
@@ -43,5 +51,22 @@ class ItemsTable
 	public function deleteItems($items_id)
 	{
 		$this->tableGateway->delete(['id' => (int)$items_id]);
+	}
+	private function PaginatedResults()
+	{
+		$select = new Select($this->tableGateway->getTable());
+	
+		$result = new ResultSet();
+		$result->setArrayObjectPrototype(new Items());
+	
+		$paginator = new DbSelect(
+				$select,
+				$this->tableGateway->getAdapter(),
+				$result
+				);
+	
+		$paginator = new Paginator($paginator);
+		
+		return $paginator;
 	}
 }

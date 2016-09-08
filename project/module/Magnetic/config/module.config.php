@@ -34,7 +34,7 @@ return [
 				'items' => [
 						'type'    => Segment::class,
 						'options' => [
-								'route' => '/items[/:action[/:id]]',
+								'route' => '/items[/:action[/:page]]',
 								'constraints' => [
 										'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 										'id'     => '[0-9]+',

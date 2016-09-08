@@ -13,7 +13,7 @@ $this->headTitle($title);
     <th>Created</th>
     <th>Order</th>
 </tr>
-<?php foreach ($items as $item) : ?>
+<?php foreach ($paginator as $item) : ?>
     <tr>
         <td><?= $this->escapeHtml($item->name) ?></td>
         <td><?= $this->escapeHtml($item->description) ?></td>
@@ -26,3 +26,13 @@ $this->headTitle($title);
     </tr>
 <?php endforeach; ?>
 </table>
+<?= $this->paginationControl(
+    // The paginator object:
+    $this->paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'items']
+) ?>

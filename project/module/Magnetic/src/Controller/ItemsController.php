@@ -23,19 +23,26 @@ class ItemsController extends AbstractActionController
 	}
 	public function onDispatch(MvcEvent $e)
 	{
-		/*$autorization = new Autorization();
+		$autorization = new Autorization();
 		
 		if($autorization->autorizate($this->auth, $this->params()->fromRoute('action'))) {
 			return $this->redirect()->toUrl($autorization->autorizate($this->auth, $this->params()->fromRoute('action')));
-		}*/
+		}
+		
 		$this->layout()->setVariables(['status' => $this->auth->getStorage()->read()->status]);
 		return parent::onDispatch($e);
 	}
 	public function indexAction()
 	{	
-		if($this->table->fetchAll()) {
-			$items = $this->table->fetchAll();
-			return new ViewModel(['items' => $items]);
+		if($this->table->fetchAll(true)) {
+			
+			$paginator = $this->table->fetchAll(true);
+			$page = (int) $this->params()->fromQuery('page', 1);
+			$page = ($page < 1) ? 1 : $page;
+			$paginator->setCurrentPageNumber($page);
+			$paginator->setItemCountPerPage(2);
+		
+			return new ViewModel(['paginator' => $paginator]);
 		}
 		return new ViewModel();
 	}

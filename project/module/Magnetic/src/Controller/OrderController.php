@@ -23,11 +23,11 @@ class OrderController extends AbstractActionController
 	}
 	public function onDispatch(MvcEvent $e)
 	{
-		/*$autorization = new Autorization();
+		$autorization = new Autorization();
 		
 		if($autorization->autorizate($this->auth, $this->params()->fromRoute('action'))) {
 			return $this->redirect()->toUrl($autorization->autorizate($this->auth, $this->params()->fromRoute('action')));
-		}*/
+		}
 		$this->layout()->setVariables(['status' => $this->auth->getStorage()->read()->status]);
 		return parent::onDispatch($e);
 	}
