@@ -98,7 +98,7 @@ class UserController extends AbstractActionController
 		}
 		
 		$user = new User();
-		$form->setInputFilter($user->getInputFilter());
+		$form->setInputFilter($user->getRegistrationFilter());
 		$form->setData($request->getPost());
 		
 		if (! $form->isValid()) {

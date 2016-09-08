@@ -43,7 +43,7 @@ class RegistrationForm extends Form
 		]);
 		$this->add([
 				'name' => 'telephone',
-				'type' => 'number',
+				'type' => 'text',
 				'options' => [
 						'label' => 'telephone',
 				],

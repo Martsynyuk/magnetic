@@ -9,6 +9,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\StringLength;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\Regex;
+use Magnetic\Core\EqualInputs;
 
 class User implements InputFilterAwareInterface
 {
@@ -60,7 +63,7 @@ class User implements InputFilterAwareInterface
 	
 		$inputFilter = new InputFilter();
 	
-		/*$inputFilter->add([
+		$inputFilter->add([
 				'name' => 'id',
 				'required' => true,
 				'filters' => [
@@ -104,10 +107,122 @@ class User implements InputFilterAwareInterface
 								],
 						],
 				],
-		]);*/
+		]);
 	
 		$this->inputFilter = $inputFilter;
 		
+		return $this->inputFilter;
+	}
+	public function getRegistrationFilter()
+	{
+		if ($this->inputFilter) {
+			return $this->inputFilter;
+		}
+	
+		$inputFilter = new InputFilter();
+	
+		$inputFilter->add([
+				'name' => 'id',
+				'required' => true,
+				'filters' => [
+						['name' => ToInt::class],
+				],
+		]);
+	
+		$inputFilter->add([
+				'name' => 'username',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => StringLength::class,
+								'options' => [
+										'encoding' => 'UTF-8',
+										'min' => 3,
+										'max' => 6,
+								],
+						],
+				],
+		]);
+	
+		$inputFilter->add([
+				'name' => 'password',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => StringLength::class,
+								'options' => [
+										'encoding' => 'UTF-8',
+										'min' => 6,
+										'max' => 12,
+								],
+						],
+				],
+		]);
+		$inputFilter->add([
+				'name' => 'confirmpassword',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => EqualInputs::class,
+						],
+				],
+		]);
+		$inputFilter->add([
+				'name' => 'email',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => StringLength::class,
+								'options' => [
+										'max' => 20,
+								],
+						],
+						[
+								'name' => EmailAddress::class,
+						],
+				],
+		]);
+		$inputFilter->add([
+				'name' => 'telephone',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => StringLength::class,
+								'options' => [
+										'max' => 20,
+								],
+						],
+						[
+								'name' => Regex::class,
+								'options' => [
+										'pattern' => '/[0-9,+,-]/',
+								],
+						],
+				],
+		]);
+	
+		$this->inputFilter = $inputFilter;
+	
 		return $this->inputFilter;
 	}
 }

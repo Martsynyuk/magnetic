@@ -29,7 +29,7 @@ class ItemForm extends Form
 		]);
 		$this->add([
 				'name' => 'price',
-				'type' => 'number',
+				'type' => 'text',
 				'options' => [
 						'label' => 'Price',
 				],

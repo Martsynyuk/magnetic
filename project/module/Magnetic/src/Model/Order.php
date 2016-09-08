@@ -55,6 +55,39 @@ class Order implements InputFilterAwareInterface
 
 		$inputFilter = new InputFilter();
 
+		$inputFilter->add([
+				'name' => 'adress',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => StringLength::class,
+								'options' => [
+										'encoding' => 'UTF-8',
+										'min' => 3,
+										'max' => 20,
+								],
+						],
+				],
+		]);
+		
+		$inputFilter->add([
+				'name' => 'qantity',
+				'required' => true,
+				'filters' => [
+						['name' => StripTags::class],
+						['name' => StringTrim::class],
+				],
+				'validators' => [
+						[
+								'name' => Digits::class,
+						],
+				],
+		]);
+		
 		$this->inputFilter = $inputFilter;
 
 		return $this->inputFilter;
