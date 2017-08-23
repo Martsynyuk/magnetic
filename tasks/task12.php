@@ -2,6 +2,37 @@
 
 include_once 'home.php';
 
-/*Написати скрипт, який парсить всі посилання і картинки з вказаної інтернет
-сторінки. Результатом роботи скрипта повинні бути виведені 2 масиви, один з
-посиланнями на сайти, інший з посиланнями на картинки.*/
+$web = 'https://stackoverflow.com';
+
+function getImage($site)
+{
+	$dom = new DOMDocument;
+	@$dom->loadHTML(file_get_contents($site));
+	$images = $dom->getElementsByTagName('img');
+
+	foreach ($images as $image) {
+		$result = explode(',', $image->getAttribute('src'));
+		print_r($result);
+	}
+
+}
+
+function getLink($site)
+{
+	$dom = new DOMDocument;
+	@$dom->loadHTML(file_get_contents($site));
+	$links = $dom->getElementsByTagName('a');
+
+	foreach ($links as $link) {
+		$result = explode(',', $link->getAttribute('href'));
+		print_r($result);
+	}
+
+}
+
+echo 'Images';
+getImage($site);
+
+echo 'Links';
+getLink($site);
+

@@ -1,7 +1,5 @@
 <?php
 
-//Написати паттерн регулярного виразу, приклади коректної роботи паттерну приведені в табличці нижче
-
 include_once 'home.php';
 
 $mails = [
@@ -14,7 +12,7 @@ $mails = [
     'mail*tt@mail.com'
 ];
 
-$pattern = '/[^!-][a-zA-Z.-]@[!.coma]+/';
+$pattern = '/^([a-zA-Z0-9]+[a-zA-Z0-9\._\-]+@[a-zA-Z0-9\._\-]+(\.[a-zA-Z0-9]{2,3}+)+)*$/';
 
 foreach ($mails as $mail) {
     var_dump(preg_match($pattern, $mail));

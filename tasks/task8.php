@@ -13,17 +13,16 @@ $a2 = [
   'city' => 'mego city',
   'street' => 'cute ave.'
 ];
+$a3 = [
+	'name' =>'',
+	'age'=>'',
+	'country' =>'',
+	'city' =>'',
+	'street' =>''
+];
 
-$list = array (
-    array('aaa', 'bbb', 'ccc', 'dddd'),
-    array('123', '456', '789'),
-    array('"aaa"', '"bbb"')
-);
-
-$fp = fopen('file.csv', 'w');
-
-foreach ($list as $fields) {
-    fputcsv($fp, $fields);
-}
-
-fclose($fp);
+$file = fopen('../files/task8/example.csv', 'w');
+fputcsv($file, array_keys($a3));
+fputcsv($file, array_replace($a3, $a1));
+fputcsv($file, array_replace($a3, $a2));
+fclose($file);

@@ -2,12 +2,12 @@
 
 include_once 'home.php';
 
-$handle = fopen('../files/tack7/example.csv', 'r');
-$arr = fgetcsv($handle);
+$arrays = array_map('str_getcsv', file('../files/task7/example.csv'));
+$head   = array_shift($arrays);
+$res    = [];
 
-while (($line = fgetcsv($handle)) !== FALSE) {
-    echo '<pre>';
-    var_dump($line);
-    echo '</pre>';
+foreach($arrays as $array) {
+	$res[] = array_combine($head, $array);
 }
-fclose($handle);
+
+var_dump($res);
